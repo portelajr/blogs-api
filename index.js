@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require('body-parser').json();
 
 const userRouter = require('./routers/userRouter');
+const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const PORT = 3000;
 
@@ -16,5 +17,7 @@ app.get('/', (request, response) => {
 });
 
 router.use('/user', userRouter);
+
+app.use(errorMiddleware);
 
 app.listen(PORT, () => console.log('ouvindo porta 3000!'));
