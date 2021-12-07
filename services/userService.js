@@ -1,6 +1,6 @@
 const { User } = require('../models/index');
 const tokenGenerator = require('../utils/tokenGenerator');
-const { userEntries } = require('../utils/validations');
+const { userEntries } = require('../utils/userValidations');
 
 const checkDB = async (email) => {
   const user = await User.findOne({ where: { email } });
@@ -12,6 +12,7 @@ const checkDB = async (email) => {
 };
 
 const createUser = async (displayName, email, password, image) => {
+  console.log(displayName);
   try {
     await userEntries(displayName, email, password);
     await checkDB(email);
