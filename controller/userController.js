@@ -18,9 +18,20 @@ const getAll = async (_req, res, next) => {
     const user = await userService.getAll();
     // console.log(user);
     return res.status(200).json(user);
-  } catch (error) {
-    return next(error);
+  } catch (err) {
+    return next(err);
   }
 };
 
-module.exports = { createUser, getAll };
+const getById = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const user = await userService.getById(id);
+    return res.status(200).json(user);
+  } catch (err) {
+    return next(err);
+  }
+};
+
+module.exports = { createUser, getAll, getById };

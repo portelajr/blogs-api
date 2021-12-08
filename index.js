@@ -20,10 +20,12 @@ app.get('/', (_request, response) => {
 
 app.post('/login', loginController.loginUser);
 app.post('/user', userController.createUser);
+app.get('/user/:id', authMiddleware, userController.getById);
 app.get('/user', authMiddleware, userController.getAll);
 
 app.use(errorMiddleware);
 
 app.listen(PORT, () => console.log('ouvindo porta 3000!'));
 
-// https://sequelize.org/master/manual/model-querying-basics.html#specifying-attributes-for-select-queries
+// https://sequelize.org/master/manual/model-querying-basics.html#specifying-attributes-for-select-queries especificações no findAll
+// https://sequelize.org/master/manual/model-querying-finders.html#-code-findbypk--code-  busca por id
