@@ -1,6 +1,7 @@
 const express = require('express');
 
 const bodyParser = require('body-parser');
+const authMiddleware = require('./middlewares/authMiddleware');
 const userController = require('./controller/userController');
 const loginController = require('./controller/loginController');
 const errorMiddleware = require('./middlewares/errorMiddleware');
@@ -17,9 +18,12 @@ app.get('/', (_request, response) => {
 });
 //
 
-app.post('/user', userController.createUser);
 app.post('/login', loginController.loginUser);
+app.post('/user', userController.createUser);
+app.get('/user', authMiddleware, userController.getAll);
 
 app.use(errorMiddleware);
 
 app.listen(PORT, () => console.log('ouvindo porta 3000!'));
+
+// https://sequelize.org/master/manual/model-querying-basics.html#specifying-attributes-for-select-queries

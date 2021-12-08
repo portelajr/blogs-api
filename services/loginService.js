@@ -7,7 +7,7 @@ const loginUser = async (payload) => {
     await loginEntries(payload);
     const { email } = payload;
     const user = await User.findOne({ where: { email } });
-    console.log(user);
+    console.log(user.dataValues);
     if (user === null) {
       const err = { code: 400, message: 'Invalid fields' };
       throw err;
