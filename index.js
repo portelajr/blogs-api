@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const authMiddleware = require('./middlewares/authMiddleware');
 const userController = require('./controller/userController');
 const loginController = require('./controller/loginController');
+const categorieController = require('./controller/categorieController');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const app = express();
@@ -20,6 +21,7 @@ app.get('/', (_request, response) => {
 
 app.post('/login', loginController.loginUser);
 app.post('/user', userController.createUser);
+app.post('/categories', authMiddleware, categorieController.createCategorie);
 app.get('/user/:id', authMiddleware, userController.getById);
 app.get('/user', authMiddleware, userController.getAll);
 

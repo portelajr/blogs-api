@@ -5,7 +5,7 @@ const createCategorie = async (req, res, next) => {
 
   try {
     const newCategorie = await categorieService.createCategorie(name);
-    return res.status(200).json(newCategorie);
+    return res.status(201).json(newCategorie);
   } catch (err) {
     return next(err);
   }
