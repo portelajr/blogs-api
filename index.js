@@ -23,6 +23,7 @@ app.get('/', (_request, response) => {
 app.post('/login', loginController.loginUser);
 app.post('/user', userController.createUser);
 app.post('/categories', authMiddleware, categorieController.createCategorie);
+app.post('/post', authMiddleware, blogpostController.createPost);
 app.get('/user/:id', authMiddleware, userController.getById);
 app.get('/user', authMiddleware, userController.getAll);
 app.get('/categories', authMiddleware, categorieController.getAll);
