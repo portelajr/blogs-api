@@ -9,6 +9,17 @@ const getAll = async (_req, res, next) => {
   }
 };
 
+const getById = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const post = await blogpostService.getById(id);
+    return res.status(200).json(post);
+  } catch (err) {
+    return next(err);
+  }
+};
+
 const createPost = async (req, res, next) => {
   const { title, content, categoryIds } = req.body;
   console.log(categoryIds);
@@ -23,4 +34,4 @@ const createPost = async (req, res, next) => {
   }
 };
 
-module.exports = { getAll, createPost };
+module.exports = { getAll, createPost, getById };
