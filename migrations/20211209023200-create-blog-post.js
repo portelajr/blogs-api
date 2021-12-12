@@ -14,13 +14,13 @@ module.exports = {
       content: {
         type: Sequelize.STRING
       },
-      createdAt: {
+      published: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
-      updatedAt: {
+      updated: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       userId: {
         type: Sequelize.INTEGER,

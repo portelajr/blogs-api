@@ -14,7 +14,7 @@ const validateContent = (content) => {
 
 const validateCategoryIds = (categoryIds) => {
   if (!categoryIds) {
-    const err = { code: 400, message: '"categoryId" is required' };
+    const err = { code: 400, message: '"categoryIds" is required' };
     throw err;
   }
 };

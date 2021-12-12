@@ -35,3 +35,4 @@ app.listen(PORT, () => console.log('ouvindo porta 3000!'));
 
 // https://sequelize.org/master/manual/model-querying-basics.html#specifying-attributes-for-select-queries especificações no findAll
 // https://sequelize.org/master/manual/model-querying-finders.html#-code-findbypk--code-  busca por id
+// https://stackoverflow.com/questions/14653913/rename-node-js-sequelize-timestamp-columns renomear colunas de createdAt/updatedAt

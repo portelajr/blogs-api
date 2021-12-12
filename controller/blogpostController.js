@@ -11,6 +11,7 @@ const getAll = async (_req, res, next) => {
 
 const createPost = async (req, res, next) => {
   const { title, content, categoryIds } = req.body;
+  console.log(categoryIds);
   const { id: userId } = req.user;
   
   try {
