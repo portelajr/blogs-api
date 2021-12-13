@@ -14,7 +14,7 @@ const getById = async (id) => {
     {
       include: [
         { model: Category, as: 'categories' },
-        { model: User, as: 'user', attributes: { exclude: ['password'] } } 
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
       ], 
     });
   
