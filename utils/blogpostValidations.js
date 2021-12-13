@@ -19,10 +19,24 @@ const validateCategoryIds = (categoryIds) => {
   }
 };
 
+const dontUpdate = (data) => {
+  if (data && data.categoryIds === true) {
+    const err = { code: 400, message: 'Categories cannot be edited' };
+    throw err;
+  }
+}; 
+
 const blogpostEntries = (title, content, categoryIds) => {
   validateTitle(title);
   validateContent(content);
   validateCategoryIds(categoryIds);
 };
 
-module.exports = { blogpostEntries };
+const updateInputs = (data) => {
+  const { title, content } = data;
+  validateTitle(title);
+  validateContent(content);
+  dontUpdate(data);
+};
+
+module.exports = { blogpostEntries, updateInputs };

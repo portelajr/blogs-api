@@ -1,13 +1,23 @@
 const { BlogPost, Category, User } = require('../models/index');
-const { blogpostEntries } = require('../utils/blogpostValidations');
+const { blogpostEntries, updateInputs } = require('../utils/blogpostValidations');
 
-const checkCat = async (categoryIds) => {
-  const checkCategorie = await Category.findOne({ where: { id: categoryIds[0] } });
-  if (checkCategorie === null) {
+const checkCategory = async (categoryIds) => {
+  const checkDB = await Category.findOne({ where: { id: categoryIds[0] } });
+  if (checkDB === null) {
     const err = { code: 400, message: '"categoryIds" not found' };
     throw err;
   }
 };
+
+// const checkUpdate = async (postId, checkId) => {
+//   const originalPost = await BlogPost.findByPk(postId);
+//   const { userId } = originalPost;
+
+//   if (userId !== checkId) {
+//     const err = { code: 401, message: 'Unauthorized user' };
+//     throw err;
+//   }
+// };
 
 const getById = async (id) => {
   const post = await BlogPost.findByPk(id, 
@@ -38,7 +48,7 @@ const getAll = async () => {
 
 const createPost = async (title, content, categoryIds, userId) => {
   blogpostEntries(title, content, categoryIds);
-  await checkCat(categoryIds);
+  await checkCategory(categoryIds);
 
   const published = new Date();
   const updated = new Date();
@@ -53,4 +63,12 @@ const createPost = async (title, content, categoryIds, userId) => {
   return response;
 };
 
-module.exports = { getAll, createPost, getById };
+const updatePost = async (data) => {
+  updateInputs(data);
+  const { title, content, id } = data;
+
+  const updated = BlogPost.update({ title, content }, { where: { id } });
+  return updated;
+};
+
+module.exports = { getAll, createPost, getById, updatePost };
