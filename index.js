@@ -21,6 +21,7 @@ app.get('/', (_request, response) => {
 //
 
 app.get('/user/:id', authMiddleware, userController.getById);
+app.delete('/user/me', authMiddleware, userController.deleteUser);
 app.post('/user', userController.createUser);
 app.get('/user', authMiddleware, userController.getAll);
 app.post('/login', loginController.loginUser);
