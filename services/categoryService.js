@@ -1,4 +1,4 @@
-const { Categorie } = require('../models/index');
+const { Category } = require('../models/index');
 
 const createCategorie = async (name) => {
   if (!name) {
@@ -6,12 +6,12 @@ const createCategorie = async (name) => {
     throw err;
   }
 
-  const newCategorie = await Categorie.create({ name });
+  const newCategorie = await Category.create({ name });
   return newCategorie;
 };
 
 const getAll = async () => {
-  const allCategories = await Categorie.findAll();
+  const allCategories = await Category.findAll();
   return allCategories;
 };
 

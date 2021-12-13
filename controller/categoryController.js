@@ -1,10 +1,10 @@
-const categorieService = require('../services/categorieService');
+const categoryService = require('../services/categoryService');
 
 const createCategorie = async (req, res, next) => {
   const { name } = req.body;
 
   try {
-    const newCategorie = await categorieService.createCategorie(name);
+    const newCategorie = await categoryService.createCategorie(name);
     return res.status(201).json(newCategorie);
   } catch (err) {
     return next(err);
@@ -13,7 +13,7 @@ const createCategorie = async (req, res, next) => {
 
 const getAll = async (_req, res, next) => {
   try {
-    const allCategories = await categorieService.getAll();
+    const allCategories = await categoryService.getAll();
     return res.status(200).json(allCategories);
   } catch (err) {
     return next(err);

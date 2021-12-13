@@ -1,24 +1,19 @@
-const { BlogPost, Categorie, User } = require('../models/index');
+const { BlogPost, Category, User } = require('../models/index');
 const { blogpostEntries } = require('../utils/blogpostValidations');
 
 const checkCat = async (categoryIds) => {
-  const checkCategorie = await Categorie.findOne({ where: { id: categoryIds[0] } });
-  console.log(checkCategorie);
+  const checkCategorie = await Category.findOne({ where: { id: categoryIds[0] } });
   if (checkCategorie === null) {
     const err = { code: 400, message: '"categoryIds" not found' };
     throw err;
   }
 };
 
-// const checkPost = async (id) => {
-//   const post = await findByPk(id)
-// };
-
 const getById = async (id) => {
   const post = await BlogPost.findByPk(id, 
     {
       include: [
-        { model: Categorie, as: 'categories' },
+        { model: Category, as: 'categories' },
         { model: User, as: 'user', attributes: { exclude: ['password'] } } 
       ], 
     });
@@ -35,7 +30,7 @@ const getAll = async () => {
   const allPosts = await BlogPost
     .findAll({
       include: [
-        { model: Categorie, as: 'categories' },
+        { model: Category, as: 'categories' },
         { model: User, as: 'user', attributes: { exclude: ['password'] } }] });
   console.log(allPosts);
   return allPosts;
@@ -50,7 +45,7 @@ const createPost = async (title, content, categoryIds, userId) => {
   
   const newPost = await BlogPost
     .create({ title, content, userId, published, updated });
-  const categories = await Categorie.findOne({ where: { id: categoryIds[0] } });
+  const categories = await Category.findOne({ where: { id: categoryIds[0] } });
   await newPost.addCategories(categories);
 
   const { id } = newPost;

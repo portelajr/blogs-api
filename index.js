@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const authMiddleware = require('./middlewares/authMiddleware');
 const userController = require('./controller/userController');
 const loginController = require('./controller/loginController');
-const categorieController = require('./controller/categorieController');
+const categoryController = require('./controller/categoryController');
 const blogpostController = require('./controller/blogpostController');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
@@ -22,11 +22,11 @@ app.get('/', (_request, response) => {
 
 app.post('/login', loginController.loginUser);
 app.post('/user', userController.createUser);
-app.post('/categories', authMiddleware, categorieController.createCategorie);
+app.post('/categories', authMiddleware, categoryController.createCategorie);
 app.post('/post', authMiddleware, blogpostController.createPost);
 app.get('/user/:id', authMiddleware, userController.getById);
 app.get('/user', authMiddleware, userController.getAll);
-app.get('/categories', authMiddleware, categorieController.getAll);
+app.get('/categories', authMiddleware, categoryController.getAll);
 app.get('/post/:id', authMiddleware, blogpostController.getById);
 app.get('/post', authMiddleware, blogpostController.getAll);
 
