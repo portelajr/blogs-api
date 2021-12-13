@@ -20,7 +20,8 @@ const validateCategoryIds = (categoryIds) => {
 };
 
 const dontUpdate = (data) => {
-  if (data && data.categoryIds === true) {
+  const { categoryIds } = data;
+  if (categoryIds) {
     const err = { code: 400, message: 'Categories cannot be edited' };
     throw err;
   }

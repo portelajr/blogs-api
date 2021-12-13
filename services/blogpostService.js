@@ -9,15 +9,15 @@ const checkCategory = async (categoryIds) => {
   }
 };
 
-// const checkUpdate = async (postId, checkId) => {
-//   const originalPost = await BlogPost.findByPk(postId);
-//   const { userId } = originalPost;
+const checkUpdate = async (postId, checkId) => {
+  const originalPost = await BlogPost.findByPk(postId);
+  const { userId } = originalPost;
 
-//   if (userId !== checkId) {
-//     const err = { code: 401, message: 'Unauthorized user' };
-//     throw err;
-//   }
-// };
+  if (userId !== checkId) {
+    const err = { code: 401, message: 'Unauthorized user' };
+    throw err;
+  }
+};
 
 const getById = async (id) => {
   const post = await BlogPost.findByPk(id, 
@@ -64,10 +64,14 @@ const createPost = async (title, content, categoryIds, userId) => {
 };
 
 const updatePost = async (data) => {
+  const { title, content, id, checkId } = data;
+  console.log(data);
   updateInputs(data);
-  const { title, content, id } = data;
+  await checkUpdate(id, checkId);
 
-  const updated = BlogPost.update({ title, content }, { where: { id } });
+  await BlogPost.update({ title, content }, { where: { id } });
+  const updated = await BlogPost.findByPk(id, { include: { model: Category, as: 'categories' } });
+  
   return updated;
 };
 

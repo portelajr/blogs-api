@@ -20,14 +20,15 @@ app.get('/', (_request, response) => {
 });
 //
 
-app.post('/login', loginController.loginUser);
-app.post('/user', userController.createUser);
-app.post('/categories', authMiddleware, categoryController.createCategorie);
-app.post('/post', authMiddleware, blogpostController.createPost);
 app.get('/user/:id', authMiddleware, userController.getById);
+app.post('/user', userController.createUser);
 app.get('/user', authMiddleware, userController.getAll);
+app.post('/login', loginController.loginUser);
 app.get('/categories', authMiddleware, categoryController.getAll);
+app.post('/categories', authMiddleware, categoryController.createCategorie);
 app.get('/post/:id', authMiddleware, blogpostController.getById);
+app.put('/post/:id', authMiddleware, blogpostController.updatePost);
+app.post('/post', authMiddleware, blogpostController.createPost);
 app.get('/post', authMiddleware, blogpostController.getAll);
 
 app.use(errorMiddleware);

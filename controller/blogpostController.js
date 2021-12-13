@@ -36,12 +36,11 @@ const createPost = async (req, res, next) => {
 
 const updatePost = async (req, res, next) => {
   const { id } = req.params;
-  const { user } = req;
-  console.log(user);
-  const data = { ...req.body, id };
+  const { id: checkId } = req.user;
+  const data = { ...req.body, id, checkId };
 
   try {
-    const post = blogpostService.updatePost(data);
+    const post = await blogpostService.updatePost(data);
     return res.status(200).json(post);
   } catch (err) {
     return next(err);
