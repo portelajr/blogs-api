@@ -12,6 +12,7 @@ const authUser = (req, res, next) => {
   try {
     const { data } = jwt.verify(token, secret);
     req.user = data;
+    // console.log(data);
     return next();
   } catch (error) {
     const err = { code: 401, message: 'Expired or invalid token' };

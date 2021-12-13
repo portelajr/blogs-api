@@ -22,12 +22,12 @@ const getById = async (req, res, next) => {
 
 const createPost = async (req, res, next) => {
   const { title, content, categoryIds } = req.body;
-  console.log(categoryIds);
-  const { id: userId } = req.user;
+  // console.log(categoryIds);
+  const { id: userCheck } = req.user;
   
   try {
     const newPost = await blogpostService
-    .createPost(title, content, categoryIds, userId);
+    .createPost(title, content, categoryIds, userCheck);
     return res.status(201).json(newPost);
   } catch (err) {
     return next(err);
@@ -36,8 +36,8 @@ const createPost = async (req, res, next) => {
 
 const updatePost = async (req, res, next) => {
   const { id } = req.params;
-  const { id: checkId } = req.user;
-  const data = { ...req.body, id, checkId };
+  const { id: userCheck } = req.user;
+  const data = { ...req.body, id, userCheck };
 
   try {
     const post = await blogpostService.updatePost(data);
@@ -47,4 +47,16 @@ const updatePost = async (req, res, next) => {
   }
 };
 
-module.exports = { getAll, createPost, getById, updatePost };
+const deletePost = async (req, res, next) => {
+  const { id: userCheck } = req.user;
+  const data = { ...req.params, userCheck };
+
+  try {
+    await blogpostService.deletePost(data);
+    return res.status(204).json();
+  } catch (err) {
+    return next(err);
+  }
+};
+
+module.exports = { getAll, createPost, getById, updatePost, deletePost };

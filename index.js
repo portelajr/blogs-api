@@ -28,6 +28,7 @@ app.get('/categories', authMiddleware, categoryController.getAll);
 app.post('/categories', authMiddleware, categoryController.createCategorie);
 app.get('/post/:id', authMiddleware, blogpostController.getById);
 app.put('/post/:id', authMiddleware, blogpostController.updatePost);
+app.delete('/post/:id', authMiddleware, blogpostController.deletePost);
 app.post('/post', authMiddleware, blogpostController.createPost);
 app.get('/post', authMiddleware, blogpostController.getAll);
 

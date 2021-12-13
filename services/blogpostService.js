@@ -9,11 +9,17 @@ const checkCategory = async (categoryIds) => {
   }
 };
 
-const checkUpdate = async (postId, checkId) => {
+const checkUpdate = async (postId, userCheck) => {
   const originalPost = await BlogPost.findByPk(postId);
-  const { userId } = originalPost;
 
-  if (userId !== checkId) {
+  if (originalPost === null) {
+    const err = { code: 404, message: 'Post does not exist' };
+    throw err;
+  }
+
+  const { userId } = originalPost;
+  // console.log(userId, userCheck);
+  if (userId !== userCheck) {
     const err = { code: 401, message: 'Unauthorized user' };
     throw err;
   }
@@ -64,10 +70,10 @@ const createPost = async (title, content, categoryIds, userId) => {
 };
 
 const updatePost = async (data) => {
-  const { title, content, id, checkId } = data;
+  const { title, content, id, userCheck } = data;
   console.log(data);
   updateInputs(data);
-  await checkUpdate(id, checkId);
+  await checkUpdate(id, userCheck);
 
   await BlogPost.update({ title, content }, { where: { id } });
   const updated = await BlogPost.findByPk(id, { include: { model: Category, as: 'categories' } });
@@ -75,4 +81,12 @@ const updatePost = async (data) => {
   return updated;
 };
 
-module.exports = { getAll, createPost, getById, updatePost };
+const deletePost = async (data) => {
+  const { id, userCheck } = data;
+  console.log(userCheck);
+  await checkUpdate(id, userCheck);
+
+  await BlogPost.destroy({ where: { id } });
+};
+
+module.exports = { getAll, createPost, getById, updatePost, deletePost };
