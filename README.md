@@ -1,5 +1,5 @@
 # Blogs-API
-API de gerenciamento de BlogPosts desenvolvida atendendo requisitos prospostos durante formação na escola técnica [Trybe](https://www.betrybe.com/?utm_source=trybe.com.br).
+API de gerenciamento de BlogPosts desenvolvida atendendo requisitos prospostos durante formação técnica na [Trybe](https://www.betrybe.com/?utm_source=trybe.com.br).
 
 ##  Sobre a aplicação:
 
