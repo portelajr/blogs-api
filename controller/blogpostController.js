@@ -60,3 +60,5 @@ const deletePost = async (req, res, next) => {
 };
 
 module.exports = { getAll, createPost, getById, updatePost, deletePost };
+
+// commit change
